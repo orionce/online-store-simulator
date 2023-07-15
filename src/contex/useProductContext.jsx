@@ -50,11 +50,9 @@ const ProductsProvider = ({ children }) => {
   function updateQuantity(id, quantity) {
     const updatedList = [...filtered];
     const product = updatedList.find((item) => item.id === id);
-    if (product) {
-      product.quantity = parseInt(quantity.value);
-      setFiltered(updatedList);
-      quantity.value = 1; // Reset value of quantity selector
-    }
+    product.quantity = parseInt(quantity.value);
+    setFiltered(updatedList);
+    quantity.value = 1; // Reset value of quantity selector
   }
 
   // add a new product to cart
@@ -67,13 +65,11 @@ const ProductsProvider = ({ children }) => {
       const newCart = [...cart];
       let newItem = newCart.find((item) => item.id === addedProduct.id);
 
-      if (newItem) {
-        newItem.quantity = addedProduct.quantity + newItem.quantity;
-      } else {
-        newCart.push({ ...addedProduct });
-      }
-      setCart(newCart);
+      !newItem
+        ? newCart.push({ ...addedProduct })
+        : (newItem.quantity = addedProduct.quantity + newItem.quantity);
 
+      setCart(newCart);
       toast.success(
         `Product ${addedProduct.title} added to cart successfully.`
       );
