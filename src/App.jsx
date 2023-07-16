@@ -21,6 +21,7 @@ import Category from "./components/Category";
 // Add axios ✔️
 // Get categories list from data ✔️
 // Create Category page ✔️
+// Create Product details page ✔️
 // Create Prev and Next product buttons in product detail page ✔️
 // Create shop now page
 // Create slug url
