@@ -1,6 +1,11 @@
 import { useProductContext } from "../contex/useProductContext";
 const Filters = () => {
-  const { setFilters, filters } = useProductContext();
+  const { setFilters, filters, products } = useProductContext();
+
+  const getCategories = products.map((category) => category.category);
+  const categories = getCategories.filter(
+    (category, index) => getCategories.indexOf(category) === index
+  );
 
   return (
     <>
@@ -25,10 +30,11 @@ const Filters = () => {
           }}
         >
           <option value="all">All</option>
-          <option value="laptops">Laptops</option>
-          <option value="fragrances">Fragances</option>
-          <option value="groceries">Groceries</option>
-          <option value="skincare">Skincare</option>
+          {categories?.map((category, index) => (
+            <option key={index} value={category}>
+              {category}
+            </option>
+          ))}
         </select>
       </div>
     </>

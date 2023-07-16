@@ -88,10 +88,23 @@ const ProductsProvider = ({ children }) => {
   // set amounts to currency format
   const setCurrency = (amount) => {
     const currency = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
       minimumFractionDigits: 2,
     });
     return currency.format(amount);
   };
+
+  function getSlug(url) {
+    // Reemplazar caracteres especiales y espacios por guiones
+    const slug = url
+      .toLowerCase() // Convertir todo a minúsculas
+      .replace(/[^\w\s-]/g, "") // Eliminar caracteres especiales
+      .replace(/\s+/g, "-") // Reemplazar espacios en blanco por guiones
+      .replace(/--+/g, "-") // Eliminar guiones duplicados
+      .trim(); // Eliminar espacios en blanco al principio y al final
+    return slug;
+  }
 
   return (
     <ProductsContext.Provider
@@ -104,6 +117,7 @@ const ProductsProvider = ({ children }) => {
         addToCart,
         deleteItem,
         setCurrency,
+        getSlug,
       }}
     >
       {children}

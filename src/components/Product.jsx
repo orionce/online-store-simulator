@@ -1,20 +1,30 @@
 import { useRef } from "react";
 import { useProductContext } from "../contex/useProductContext";
+import { AiOutlineShoppingCart } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 const Product = ({ product }) => {
-  const { addToCart, setCurrency } = useProductContext();
+  const { addToCart, setCurrency, getSlug } = useProductContext();
 
   // Capture quantity value of products to buy
   const getQuantity = useRef();
 
   return (
     <>
-      <div>
-        <img src={product.thumbnail} className="card-img-top" alt="..." />
+      <div className="imageProduct">
+        <Link to={`/product/${product.title}`}>
+          <img
+            src={product.thumbnail}
+            className="card-img-top"
+            alt={product.title}
+          />
+        </Link>
       </div>
       <div className="description">
-        <h3 className="card-title">{product.title}</h3>
-        <h4>{`$ ${setCurrency(product.price)}`}</h4>
+        <Link to={`/product/${product.title}`}>
+          <h3 className="card-title">{product.title}</h3>
+        </Link>
+        <h4>{setCurrency(product.price)}</h4>
         <p className="card-text">{product.description}</p>
       </div>
       <span className="stock">
@@ -36,7 +46,14 @@ const Product = ({ product }) => {
             addToCart(product, getQuantity, product.id);
           }}
         >
-          Add to cart
+          <div>
+            <p>Add to cart</p>
+            <p>
+              <span>
+                <AiOutlineShoppingCart />
+              </span>
+            </p>
+          </div>
         </button>
       </div>
     </>

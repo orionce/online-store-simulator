@@ -1,10 +1,12 @@
-import Cart from "./components/Cart";
-import CartButton from "./components/CartButton";
-import Products from "./components/Products";
 import { ProductsProvider } from "./contex/useProductContext";
 import { Link, Route, Routes } from "react-router-dom";
 import logo from "./assets/logo.png";
+import Products from "./components/Products";
+import Cart from "./components/Cart";
+import CartButton from "./components/CartButton";
 import { Toaster } from "react-hot-toast";
+import ProductDetail from "./components/ProductDetail";
+import Category from "./components/Category";
 
 // Create context ✔️
 // Get Product list ✔️
@@ -17,7 +19,11 @@ import { Toaster } from "react-hot-toast";
 // Implement Router✔️
 // Add Cart warnings (react hot toast)✔️
 // Add axios ✔️
+// Get categories list from data ✔️
+// Create Category page ✔️
+// Create Prev and Next product buttons in product detail page ✔️
 // Create shop now page
+// Create slug url
 
 function App() {
   return (
@@ -38,10 +44,12 @@ function App() {
               </nav>
             </div>
           </header>
-          <div className="fluid">
+          <div className="">
             <Routes>
               <Route path="/" element={<Products />} />
               <Route path="/shopping-cart" element={<Cart />} />
+              <Route path="/product/:id" element={<ProductDetail />} />
+              <Route path="/category/:category" element={<Category />} />
             </Routes>
           </div>
         </div>
