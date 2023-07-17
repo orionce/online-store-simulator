@@ -4,10 +4,11 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
 const Product = ({ product }) => {
-  const { addToCart, setCurrency, getSlug } = useProductContext();
+  const { addToCart, setCurrency } = useProductContext();
 
   // Capture quantity value of products to buy
   const getQuantity = useRef();
+  const getSlug
 
   return (
     <>
@@ -28,7 +29,12 @@ const Product = ({ product }) => {
         <p className="card-text">{product.description}</p>
       </div>
       <span className="stock">
-        <strong>Stock:</strong> {product.stock}
+        <span>Stock: </span>
+        {product.stock === 0 ? (
+          <span className="errorColor">out of stock</span>
+        ) : (
+          product.stock
+        )}
       </span>
 
       <div className="addCart">

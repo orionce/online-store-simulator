@@ -16,13 +16,19 @@ const ProductsProvider = ({ children }) => {
     category: "all",
     title: "",
   });
+  const [totalMount, setTotalMount] = useState(0);
+
+  const getTotalBuy = () => {
+    let totals = cart.map((a) => a.price * a.quantity);
+    let mount = parseFloat(totals.reduce((a, b) => a + b));
+    setTotalMount(mount);
+  };
 
   useEffect(() => {
     if (data?.products && data?.products.length) {
       const newproducts = data?.products?.map((product) => ({
         ...product,
-        // Add quantity property to each product
-        quantity: parseInt(1),
+        quantity: parseInt(1), // Add quantity property to each product
       }));
       setProducts(newproducts);
     }
@@ -117,6 +123,8 @@ const ProductsProvider = ({ children }) => {
         addToCart,
         deleteItem,
         setCurrency,
+        getTotalBuy,
+        totalMount,
         getSlug,
       }}
     >

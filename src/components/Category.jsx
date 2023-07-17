@@ -5,6 +5,7 @@ import Product from "./Product";
 const Category = () => {
   const { filtered } = useProductContext();
   const params = useParams();
+
   const categoryProducts = filtered.filter(
     (product) => product.category === params.category
   );

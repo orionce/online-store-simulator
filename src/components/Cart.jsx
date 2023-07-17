@@ -1,31 +1,32 @@
 import { useProductContext } from "../contex/useProductContext";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { BsFillXSquareFill } from "react-icons/bs";
+import { IoCartOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
 const Cart = () => {
-  const { cart, deleteItem, setCurrency } = useProductContext();
-  const [totalMount, setTotalMount] = useState(0);
+  const { cart, deleteItem, setCurrency, getTotalBuy, totalMount } =
+    useProductContext();
+  //const [totalMount, setTotalMount] = useState(0);
 
   // const tax = (totalMount / 100) * 13;
   const shippingCost = 4.75;
 
   useEffect(() => {
     if (cart.length) {
-      let totals = cart.map((a) => a.price * a.quantity);
-      let mount = parseFloat(totals.reduce((a, b) => a + b));
-      setTotalMount(mount);
+      getTotalBuy();
     }
   }, [cart]);
 
   return (
     <>
       <div className="titlePage">
-        <h2>Shop</h2>
+        <h2>Shopping Cart</h2>
       </div>
       <div className="shoppingCart fluid">
         {cart.length === 0 ? (
           <div className="shoppingNotice t-center">
+            <IoCartOutline className="bigCart" />
             <h3 className="">Your Shopping Cart is empty!</h3>
             <p>Add some products to shopping cart.</p>
             <Link className="btn" to="/">
@@ -92,7 +93,13 @@ const Cart = () => {
                   </tr>
                   <tr>
                     <td colSpan={2}>
-                      <button className="btn totalBtn">BUY NOW</button>
+                      <button className="btn totalBtn">
+                        Proceed to Checkout
+                      </button>
+
+                      <Link to="/shopping-cart/checkout" state={shippingCost}>
+                        Shop
+                      </Link>
                     </td>
                   </tr>
                 </tbody>

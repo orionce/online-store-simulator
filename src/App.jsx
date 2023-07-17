@@ -7,6 +7,7 @@ import CartButton from "./components/CartButton";
 import { Toaster } from "react-hot-toast";
 import ProductDetail from "./components/ProductDetail";
 import Category from "./components/Category";
+import Checkout from "./components/Checkout";
 
 // Create context ✔️
 // Get Product list ✔️
@@ -23,7 +24,7 @@ import Category from "./components/Category";
 // Create Category page ✔️
 // Create Product details page ✔️
 // Create Prev and Next product buttons in product detail page ✔️
-// Create shop now page
+// Create checkuot page
 // Create slug url
 
 function App() {
@@ -32,25 +33,28 @@ function App() {
       <ProductsProvider>
         <div>
           <header>
-            <div className="fluid head">
-              <div>
-                <Link to="/">
-                  <img src={logo} alt="" />
-                </Link>
+            <div className="fluid">
+              <div className="head">
+                <div>
+                  <Link to="/">
+                    <img src={logo} alt="" />
+                  </Link>
+                </div>
+                <nav>
+                  <Link to="/shopping-cart">
+                    <CartButton />
+                  </Link>
+                </nav>
               </div>
-              <nav>
-                <Link to="/shopping-cart">
-                  <CartButton />
-                </Link>
-              </nav>
             </div>
           </header>
           <div className="">
             <Routes>
               <Route path="/" element={<Products />} />
               <Route path="/shopping-cart" element={<Cart />} />
-              <Route path="/product/:id" element={<ProductDetail />} />
+              <Route path="/product/:productName" element={<ProductDetail />} />
               <Route path="/category/:category" element={<Category />} />
+              <Route path="/shopping-cart/:checkout" element={<Checkout />} />
             </Routes>
           </div>
         </div>

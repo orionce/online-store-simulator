@@ -1,4 +1,4 @@
-import { BsFillCartFill, BsFillCartCheckFill } from "react-icons/bs";
+import { IoCartOutline, IoCartSharp } from "react-icons/io5";
 import { useProductContext } from "../contex/useProductContext";
 
 const CartButton = () => {
@@ -8,10 +8,10 @@ const CartButton = () => {
     <div className="cartBtn">
       <button>
         {cart.length === 0 ? (
-          <BsFillCartFill />
+          <IoCartOutline />
         ) : (
           <span className="red">
-            <BsFillCartCheckFill />
+            <IoCartSharp />
           </span>
         )}
       </button>

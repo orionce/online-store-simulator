@@ -6,6 +6,10 @@
 :root {
   --primary-color: #ff7f50;
   --default-color: #2b2b2b;
+  --error-color: rgb(204, 54, 54);
+}
+.errorColor {
+  color: var(--error-color);
 }
 h3 {
   color: var(--primary-color);
@@ -28,11 +32,14 @@ body {
 }
 button {
   font-family: inherit;
+  text-transform: uppercase;
+  font-size: 12px;
 }
 .fluid {
   width: 100%;
   max-width: 1200px;
   margin: auto;
+  padding: 0 20px;
 }
 .t-center {
   text-align: center;
@@ -89,7 +96,6 @@ nav {
   margin: 20px auto;
 }
 .products {
-  margin-top: 60px;
 }
 .products > h2 {
   font-weight: 500;
@@ -145,7 +151,6 @@ nav {
   margin-bottom: 15px;
 }
 .products li p {
-  font-size: 13px;
   line-height: 1.4;
   margin-bottom: 20px;
 }
@@ -171,6 +176,7 @@ nav {
 .btn {
   width: 100%;
   height: 40px;
+  padding: 0 25px;
   border: none;
   background-color: var(--primary-color);
   color: #fff;
@@ -201,28 +207,29 @@ nav {
   margin: 0;
 }
 .btn div p span {
-  font-size: 20px;
+  font-size: 22px;
+  padding-top: 5px;
 }
 .btn:hover div {
   top: -40px;
 }
 
 .totalBtn {
-  width: 100%;
-  font-size: 16px;
+  border-radius: 0;
+  color: #fff;
 }
 
 /* shopping cart */
-.shoppingCart {
-  margin-top: 60px;
-}
+
 .shoppingNotice {
   text-align: center;
   font-weight: 500;
   font-size: 20px;
-  padding: 45px 0;
 }
-
+.bigCart {
+  font-size: 130px;
+  color: #ccc;
+}
 .shoppingNotice .btn {
   padding: 10px 35px;
   max-width: 130px;
@@ -352,7 +359,6 @@ nav {
 /* product view */
 .productViewContent {
   padding: 0 45px 45px;
-  margin-top: 60px;
   background-color: #fff;
 }
 
@@ -397,6 +403,10 @@ nav {
   margin-bottom: 20px;
   list-style-type: none;
   font-size: 14px;
+  display: flex;
+}
+.breadcrumbs ul li {
+  padding: 0 3px 0 0;
 }
 .prev-next {
   display: flex;
@@ -438,12 +448,34 @@ nav {
 .titlePage {
   width: 100%;
   background-color: #444444;
+  padding: 40px 20px;
+  margin-bottom: 60px;
 }
 .titlePage h2 {
   text-align: center;
-  padding: 45px 20px;
   color: #fff;
   text-transform: uppercase;
-  margin-bottom: 60px;
   font-weight: normal;
+}
+
+/* checkout page */
+.checkout h2 {
+  font-weight: 500;
+  text-align: center;
+}
+.checkout .checkoutTable {
+  width: 100%;
+  max-width: 550px;
+  margin: auto;
+}
+.checkoutTable td {
+  padding: 10px 0;
+}
+.checkoutTable th {
+  text-align: left;
+}
+.checkoutTable td:last-child,
+.checkoutTable th:last-child {
+  max-width: 150px;
+  text-align: right;
 }

@@ -12,12 +12,13 @@ const ProductDetail = () => {
   let params = useParams();
 
   // Get product from url title
-  const prod = filtered?.filter((item) => item.title === params.id);
+  const prod = filtered?.filter((item) => item.title === params.productName);
   const product = prod[0];
 
-  // Get next product
+  // Get index of product
   const GetIndex = filtered?.indexOf(product);
 
+  // declare indexes of previus and next products
   let prevProduct = filtered[GetIndex - 1];
   let nextProduct = filtered[GetIndex + 1];
 
@@ -36,14 +37,18 @@ const ProductDetail = () => {
               </div>
               <div className="productDetails">
                 <div className="breadcrumbs">
-                  <ul>
+                  <ul className="flex">
                     <li>
-                      <Link to="/">Store</Link> /{" "}
+                      <Link to="/">Store </Link> /
+                    </li>
+                    <li>
+                      {" "}
                       <Link to={`../category/${product.category}`}>
                         {product.category}
                       </Link>{" "}
-                      / {product.title}
+                      /
                     </li>
+                    <li> {product.title}</li>
                   </ul>
                   <div className="prev-next">
                     {GetIndex > 0 ? (
@@ -70,7 +75,12 @@ const ProductDetail = () => {
                   {product.description}
                 </p>
                 <p className="productStock">
-                  <span>Stock:</span> {product.stock}
+                  <span>Stock: </span>
+                  {product.stock === 0 ? (
+                    <span className="errorColor">out of stock</span>
+                  ) : (
+                    product.stock
+                  )}
                 </p>
                 <div className="addCart">
                   <input

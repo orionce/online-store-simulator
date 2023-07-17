@@ -1,8 +1,12 @@
 import { useProductContext } from "../contex/useProductContext";
+
 const Filters = () => {
   const { setFilters, filters, products } = useProductContext();
 
+  // Get categories from products
   const getCategories = products.map((category) => category.category);
+
+  // filter duplicate categories
   const categories = getCategories.filter(
     (category, index) => getCategories.indexOf(category) === index
   );
