@@ -1,22 +1,14 @@
 import { useProductContext } from "../contex/useProductContext";
-import { useEffect } from "react";
 import { BsFillXSquareFill } from "react-icons/bs";
 import { IoCartOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
 const Cart = () => {
-  const { cart, deleteItem, setCurrency, getTotalBuy, totalMount } =
+  const { cart, deleteItem, setCurrency, totalMount, getSlug } =
     useProductContext();
-  //const [totalMount, setTotalMount] = useState(0);
 
   // const tax = (totalMount / 100) * 13;
   const shippingCost = 4.75;
-
-  useEffect(() => {
-    if (cart.length) {
-      getTotalBuy();
-    }
-  }, [cart]);
 
   return (
     <>
@@ -30,7 +22,7 @@ const Cart = () => {
             <h3 className="">Your Shopping Cart is empty!</h3>
             <p>Add some products to shopping cart.</p>
             <Link className="btn" to="/">
-              Shop
+              Return to shop
             </Link>
           </div>
         ) : (
@@ -58,13 +50,17 @@ const Cart = () => {
                       </button>
                     </td>
                     <td>
-                      <Link to={`/product/${product.title}`} state={product}>
+                      <Link
+                        to={`/product/${getSlug(product.title)}-${product.id}`}
+                      >
                         <img src={product.thumbnail} width="70px" />
                       </Link>
                     </td>
 
                     <td>
-                      <Link to={`/product/${product.title}`} state={product}>
+                      <Link
+                        to={`/product/${getSlug(product.title)}-${product.id}`}
+                      >
                         {product.title}
                       </Link>
                     </td>
@@ -93,12 +89,12 @@ const Cart = () => {
                   </tr>
                   <tr>
                     <td colSpan={2}>
-                      <button className="btn totalBtn">
+                      <Link
+                        className="totalBtn"
+                        to="/shopping-cart/checkout"
+                        state={shippingCost}
+                      >
                         Proceed to Checkout
-                      </button>
-
-                      <Link to="/shopping-cart/checkout" state={shippingCost}>
-                        Shop
                       </Link>
                     </td>
                   </tr>

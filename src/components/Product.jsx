@@ -4,16 +4,15 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
 const Product = ({ product }) => {
-  const { addToCart, setCurrency } = useProductContext();
+  const { addToCart, setCurrency, getSlug } = useProductContext();
 
   // Capture quantity value of products to buy
   const getQuantity = useRef();
-  const getSlug
 
   return (
     <>
       <div className="imageProduct">
-        <Link to={`/product/${product.title}`}>
+        <Link to={`/product/${getSlug(product.title)}-${product.id}`}>
           <img
             src={product.thumbnail}
             className="card-img-top"
@@ -32,6 +31,8 @@ const Product = ({ product }) => {
         <span>Stock: </span>
         {product.stock === 0 ? (
           <span className="errorColor">out of stock</span>
+        ) : product.stock > 0 && product.stock < 3 ? (
+          <span className="errorColor">only {product.stock} left</span>
         ) : (
           product.stock
         )}
@@ -49,7 +50,11 @@ const Product = ({ product }) => {
         <button
           className="btn"
           onClick={() => {
-            addToCart(product, getQuantity, product.id);
+            if (product.stock === 0) {
+              null;
+            } else {
+              addToCart(product, getQuantity, product.id);
+            }
           }}
         >
           <div>

@@ -24,8 +24,9 @@ import Checkout from "./components/Checkout";
 // Create Category page ✔️
 // Create Product details page ✔️
 // Create Prev and Next product buttons in product detail page ✔️
-// Create checkuot page
-// Create slug url
+// Create checkuot page ✔️
+// Create slug url ✔️
+// Products stock updated after purchase ✔️
 
 function App() {
   return (
@@ -51,9 +52,9 @@ function App() {
           <div className="">
             <Routes>
               <Route path="/" element={<Products />} />
-              <Route path="/shopping-cart" element={<Cart />} />
               <Route path="/product/:productName" element={<ProductDetail />} />
               <Route path="/category/:category" element={<Category />} />
+              <Route path="/shopping-cart" element={<Cart />} />
               <Route path="/shopping-cart/:checkout" element={<Checkout />} />
             </Routes>
           </div>

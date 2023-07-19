@@ -1,26 +1,50 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useProductContext } from "../contex/useProductContext";
 import { AiOutlineAppstore } from "react-icons/ai";
 import { BsChevronRight, BsChevronLeft, BsCart3 } from "react-icons/bs";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const ProductDetail = () => {
-  const { addToCart, setCurrency, filtered } = useProductContext();
+  const { addToCart, setCurrency, filtered, getSlug } = useProductContext();
+  const [product, setProduct] = useState();
+  const [next, setNext] = useState();
+  const [prev, setPrev] = useState();
+
   const getQuantity = useRef();
-
   let params = useParams();
+  const navigate = useNavigate();
 
-  // Get product from url title
-  const prod = filtered?.filter((item) => item.title === params.productName);
-  const product = prod[0];
+  useEffect(() => {
+    if (filtered?.length) {
+      getProduct();
+    }
+  }, [filtered, params]);
 
-  // Get index of product
-  const GetIndex = filtered?.indexOf(product);
+  function setIndex(prd) {
+    const index = filtered?.indexOf(prd);
+    setPrev(index - 1);
+    setNext(index + 1);
+    return index;
+  }
 
-  // declare indexes of previus and next products
-  let prevProduct = filtered[GetIndex - 1];
-  let nextProduct = filtered[GetIndex + 1];
+  const getProduct = () => {
+    let splitString = params.productName.split("-");
+    let id = splitString[splitString.length - 1];
+    const prod = filtered?.find((item) => item.id === parseInt(id));
+    setIndex(prod);
+    setProduct(prod);
+  };
+
+  // // Get index of product
+  const navigation = (action) => {
+    const index = setIndex(product);
+    if (index >= 0 && index <= filtered.length) {
+      const next = filtered[index + action];
+      const url = `/product/${getSlug(next.title)}-${next.id}`;
+      navigate(url);
+    }
+  };
 
   return (
     <>
@@ -51,18 +75,18 @@ const ProductDetail = () => {
                     <li> {product.title}</li>
                   </ul>
                   <div className="prev-next">
-                    {GetIndex > 0 ? (
-                      <Link to={`/product/${prevProduct.title}`}>
-                        <BsChevronLeft />
-                      </Link>
+                    {prev >= 0 ? (
+                      <span>
+                        <BsChevronLeft onClick={() => navigation(-1)} />
+                      </span>
                     ) : null}
                     <Link to="/">
                       <AiOutlineAppstore />
                     </Link>
-                    {GetIndex + 1 < filtered.length ? (
-                      <Link to={`/product/${nextProduct.title}`}>
-                        <BsChevronRight />
-                      </Link>
+                    {next < filtered.length ? (
+                      <span>
+                        <BsChevronRight onClick={() => navigation(1)} />
+                      </span>
                     ) : null}
                   </div>
                 </div>
